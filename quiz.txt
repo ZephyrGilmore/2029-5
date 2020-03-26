@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+<title>CodePen - In Class Project 2029-5</title>
+<style>
+body {
+  background: lightgrey;
+}
+
+#cow {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+input {
+  width: 50px;
+  hight: 10px;
+  font-size: 10px;
+}
+
+.correct {
+  background: lime;
+}
+
+.incorrect {
+  background: red;
+}
+
+audio {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+</style>
+</head>
+<body translate="no">
+<img id="cow" src="https://www.ucdavis.edu/sites/default/files/styles/panopoly_image_full/public/home-site/blogs/one-health/blog-posts/2018/cow-field-one-health-uc-davis.jpg?itok=lrz5mpyq" alt="cow image" />
+<input id="1" data-start="0" data-duration="3500" style="position:absolute; left:240px; top:240px" type="text" data-correct="head" />
+<input id="2" data-start="3" data-duration="3500" style="position:absolute; left:400px; top:240px" type="text" data-correct="ribs" />
+<input id="3" data-start="6" data-duration="3500" style="position:absolute; left:600px; top:240px" type="text" data-correct="butt" />
+https://zephyrgilmore.github.io/2029-5/Cow.m4a
+<audio id="Cow" controls>
+<source src="https://zephyrgilmore.github.io/2029-5/Cow.m4a" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+<button style="position:absolute; left:900px; top:5px" onclick="resetQuiz()"> Reset </button>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script id="rendered-js">
+console.clear();
+
+$("input").hide(100);
+$("#1").show(100);
+
+$("input").change(onChange);
+
+var score = 0;
+
+function onChange(evt) {
+  let correct = $(this).data("correct");
+  let answer = $(this).val();
+  let start = $(this).data("start");
+  let duration = $(this).data("duration");
+
+  console.log(correct, answer, "Start:", start, "duration:", duration);
+
+  if (correct == answer) {
+    aud.currentTime = start;
+    aud.play();
+    setTimeout(function () {
+      aud.pause();
+    }, duration);
+
+    score = score + 1;
+    $(this).removeClass("incorrect").addClass("correct");
+  } else {
+    $(this).removeClass("correct").addClass("incorrect");
+  }
+
+  console.log("score:", score);
+
+  if (score == 0) {
+    $("input").hide(100);
+    $("#1").show(100);
+  }
+
+  if (score == 1) {
+    $("input").hide(100);
+    $("#2").show(100);
+  }
+
+  if (score == 2) {
+    $("input").hide(100);
+    $("#3").show(100);
+  }
+
+  if (score == 3) {
+    $("input").hide(100);
+  }
+}
+
+aud = document.getElementById("Cow");
+
+function resetQuiz() {
+  score = 0;
+  $("input").hide(100);
+  console.log(score);
+  $("#1").show(100);
+}
+    </script>
+</body>
+</html>
